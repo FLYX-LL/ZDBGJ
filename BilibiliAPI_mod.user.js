@@ -52,7 +52,7 @@ var BilibiliAPI = {
             check: (roomid) => BilibiliAPI.lottery.lottery.check_guard(roomid),
             join: (roomid, id, type) => BilibiliAPI.xlive.guard.join(roomid, id, type)
         },
-        Pk: {
+        Pk:{
             check: (roomid) => BilibiliAPI.xlive.pk.check(roomid),
             join: (roomid, id) => BilibiliAPI.xlive.pk.join(roomid, id)
         }
@@ -97,7 +97,7 @@ var BilibiliAPI = {
         BilibiliAPI.runUntilSucceed(() => {
             if (BilibiliAPI.processing > 8) return false;
             ++BilibiliAPI.processing;
-            return jQuery.ajax(settings).then((arg1, arg2, arg3, ) => {
+            return jQuery.ajax(settings).then((arg1, arg2, arg3) => {
                 --BilibiliAPI.processing;
                 p.resolve(arg1, arg2, arg3);
                 return true;
@@ -342,7 +342,7 @@ var BilibiliAPI = {
             });
         }
     },
-    gift: {//送礼物
+    gift: {
         bag_list: () => {
             // 获取包裹礼物列表
             return BilibiliAPI.ajax({
@@ -462,7 +462,7 @@ var BilibiliAPI = {
             }
         }
     },
-    giftBag: {//礼物包裹
+    giftBag: {
         getSendGift: () => {
             return BilibiliAPI.ajax({
                 url: 'giftBag/getSendGift'
@@ -632,7 +632,7 @@ var BilibiliAPI = {
             getStatus: (aid, times = '') => {
                 // 获取活动信息/状态
                 return BilibiliAPI.ajax({
-                    url: 'lottery/v1/box/getStatus',
+                    url: 'xlive/lottery-interface/v2/Box/getStatus',
                     data: {
                         aid: aid,
                         times: times
@@ -642,7 +642,7 @@ var BilibiliAPI = {
             draw: (aid, number = 1) => {
                 // 参加实物抽奖
                 return BilibiliAPI.ajax({
-                    url: 'lottery/v1/box/draw',
+                    url: 'xlive/lottery-interface/v2/Box/draw',
                     data: {
                         aid: aid,
                         number: number
@@ -652,7 +652,7 @@ var BilibiliAPI = {
             getWinnerGroupInfo: (aid, number = 1) => {
                 // 获取中奖名单
                 return BilibiliAPI.ajax({
-                    url: 'lottery/v1/box/getWinnerGroupInfo',
+                    url: 'xlive/lottery-interface/v2/Box/getWinnerGroupInfo',
                     data: {
                         aid: aid,
                         number: number
@@ -733,7 +733,7 @@ var BilibiliAPI = {
             return BilibiliAPI.ajaxWithCommonArgs({
                 method: 'POST',
                 url: 'mobile/userOnlineHeart',
-                data: {}
+                data: {'roomid': 23058, 'scale': 'xhdpi'}
             });
         }
     },
@@ -780,11 +780,6 @@ var BilibiliAPI = {
                     areaId: areaId
                 }
             });
-        },
-        getTopRealTimeHour:() => {
-            return BilibiliAPI.ajax({
-                url: 'https://api.live.bilibili.com/rankdb/v1/Rank2018/getTop?type=master_realtime_hour&type_id=areaid_realtime_hour'
-            })
         }
     },
     relation: {
@@ -1301,7 +1296,7 @@ var BilibiliAPI = {
                 'roomid': parseInt(roomid, 10),
                 'protover': 2,
                 'platform': 'web',
-                'clientver': '1.8.5',
+                'clientver': '1.8.12',
                 'type': 2,
                 'key': this.token
             };
